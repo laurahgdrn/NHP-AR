@@ -1,7 +1,5 @@
 """
-Created on Wed May 10 15:51:34 2023
-
-@author: J.Reukauf
+This code transforms CSV annotation files to YOLO format.  
 """
 
 import os

@@ -1,3 +1,6 @@
+"""This code employs the trained YOLO model to crop around "regions of interest", referring to 
+the macaques. It crops around a the union of the detected bounding boxes with a fixed pixel size.""" 
+
 import os
 import cv2
 from ultralytics import YOLO 

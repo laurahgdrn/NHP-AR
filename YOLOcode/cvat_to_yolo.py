@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 13 14:38:25 2024
+CThis code transforms CVAT annotation files to YOLO format.  
 
-@author: hagedorn
 """
 import os.path
 from xml.dom import minidom

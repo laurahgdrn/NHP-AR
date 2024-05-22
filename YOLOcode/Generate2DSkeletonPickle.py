@@ -1,3 +1,24 @@
+"""This code employs YOLO to iterate through a directory of videos and creates
+2D skeletons. The 2D skeletons are then stored in a pickle file, with the following format: 
+
+Each pickle file corresponds to an action recognition dataset. The content of a pickle file is a dictionary with two fields: split and annotations
+Split: The value of the split field is a dictionary: the keys are the split names, while the values are lists of video identifiers that belong to the specific clip.
+Annotations: The value of the annotations field is a list of skeleton annotations, each skeleton annotation is a dictionary, containing the following fields:
+frame_dir (str): The identifier of the corresponding video.
+total_frames (int): The number of frames in this video.
+img_shape (tuple[int]): The shape of a video frame, a tuple with two elements, in the format of (height, width). Only required for 2D skeletons.
+original_shape (tuple[int]): Same as img_shape.
+label (int): The action label.
+keypoint (np.ndarray, with shape [M x T x V x C]): The keypoint annotation.
+M: number of persons;
+T: number of frames (same as total_frames);
+V: number of keypoints (25 for NTURGB+D 3D skeleton, 17 for CoCo, 18 for OpenPose, etc. );
+C: number of dimensions for keypoint coordinates (C=2 for 2D keypoint, C=3 for 3D keypoint).
+keypoint_score (np.ndarray, with shape [M x T x V]): The confidence score of keypoints. Only required for 2D skeletons.
+
+"""
+
+
 import os
 import cv2
 import json

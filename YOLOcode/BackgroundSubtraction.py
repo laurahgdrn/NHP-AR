@@ -1,3 +1,8 @@
+"""This code reads automatically performs background subtraction on videos. 
+It iterates through the frames in a video and computes the pixel difference between a frame and its 
+precedessor. If the difference is below a certain threshold (default: 250) over a number of 5 consecutive frames, 
+the frames without movement are removed."""
+
 # read video file 
 # perform background subtraction 
 # only save those frames where there is 'motion'

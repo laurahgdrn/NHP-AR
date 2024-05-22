@@ -1,3 +1,7 @@
+"""
+This code extracts bounding box coordinates from xml files and converts them to YOLO format.  
+"""
+
 import os
 import xml.etree.ElementTree as ET
 

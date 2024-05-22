@@ -12,12 +12,6 @@ metrics.box.map50  # map50
 metrics.box.map75  # map75
 metrics.box.maps   # a list contains map50-95 of each category
 
-# Pose map50-95 
-# train101: 0.182
-# train7: 0.0621 
-# train3: 0.147
-# train: 0.237
-
 
 
 

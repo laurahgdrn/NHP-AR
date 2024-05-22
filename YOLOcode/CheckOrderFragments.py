@@ -1,3 +1,5 @@
+"""This code checks whether the synchronized frames from both camera views are in the correct order."""
+
 import os 
 
 LA_path = "/Users/hagedorn/Desktop/YOLO/LA"

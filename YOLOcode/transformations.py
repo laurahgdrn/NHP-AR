@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jan  4 11:19:52 2024
-
-@author: hagedorn
+This code performs data augmentation on images and label files in YOLO format. 
 """
 
 import albumentations as A

@@ -1,3 +1,4 @@
+"""This function just retrieves the action belonging to a video based on the filename."""
 
 import os
 

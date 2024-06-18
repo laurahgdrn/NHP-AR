@@ -16,9 +16,9 @@ def get_class(file):
         return 1 
     
 # Initialize mmaction2 model
-config_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d.py"
-checkpoint_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_200.pth"
-mmaction_model = init_recognizer(config_path, checkpoint_path, device="cpu")
+config_path = "work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d.py"
+checkpoint_path = "work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_20.pth"
+mmaction_model = init_recognizer(config_path, checkpoint_path, device="cuda:0") # or "cpu"
 
 predictions_list = []
 ground_truth_list = []
@@ -48,7 +48,7 @@ def process_video(video_path, yolo_model, mmaction_model):
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     print("Total frames in video:", total_frames)
 
-    ground_truth = get_class(video_path)
+    ground_truth = get_class(video_path) # get ground truth based on filename
     pose_results = []
     frame_count = 0
     action_label = "unknown"
@@ -65,7 +65,7 @@ def process_video(video_path, yolo_model, mmaction_model):
         
         frame_count += 1
         
-        # Perform action recognition every 100 frames
+        # Perform action recognition at the end of the video (or every 50, 100, 200 frames)
         if len(pose_results) == total_frames:
             formatted_pose_results = []
             for pose in pose_results:
@@ -95,7 +95,7 @@ def process_video(video_path, yolo_model, mmaction_model):
     return ground_truth_list, predictions_list
 # # Load YOLO model
 yolo_model = YOLO("/Users/hagedorn/runs/pose/train2/weights/best.pt")
-video_dir = "/Users/hagedorn/mmaction2/tools/data/macaques/val"
+video_dir = "/Users/hagedorn/mmaction2/tools/data/macaques/val" # test set directory containing new/unseen videos
 video_files = [f for f in os.listdir(video_dir) if f.endswith('.mp4')]
 
 for video in video_files: 

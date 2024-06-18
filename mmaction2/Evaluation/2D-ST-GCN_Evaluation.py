@@ -31,7 +31,7 @@ def get_annotation_for_frame_dir(frame_dir, annotations):
             return annotation
     return None
 
-# Extract 3D skeleton data for validation set and perform action recognition
+# Extract 2D skeleton data for validation set and perform action recognition
 predictions_list = []
 ground_truth_list = []
 

@@ -1,4 +1,5 @@
-"""This function just retrieves the action belonging to a video based on the filename."""
+"""This function just retrieves the action belonging to a video based on the filename 
+and writes it on a plain text file. This a requirement by MMACTION2 for action recognition based on videos."""
 
 import os
 

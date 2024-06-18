@@ -1,3 +1,9 @@
+""" This code splits a video into smaller segments that contain movement. 
+Parts without movement are removed. Movement is defined by a threshold referring
+to the pixel difference in consecutive frames. The logic is as follows: 
+if the pixel difference is below a certain threshold (in this case, 30) for 5 consecutive frames, 
+then it is assumed that no relevant movement has occurred. """
+
 import cv2
 import os
 

@@ -1,3 +1,5 @@
+### This code just extracts a frame to use as a background. ###
+
 import cv2
 
 def extract_frame(video_path, time_str, output_path):

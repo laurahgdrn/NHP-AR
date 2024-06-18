@@ -10,9 +10,9 @@ from mmaction.apis import inference_skeleton, init_recognizer
 from sklearn.metrics import accuracy_score, precision_score, recall_score, average_precision_score
 
 # Load the pickle file
-pickle_file_path = "/Users/hagedorn/mmaction2/macaques_skeleton_2d_train2.pkl"
-config_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d.py"
-checkpoint_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_10.pth"
+pickle_file_path = "mmaction2/macaques_skeleton_2d_train2.pkl"
+config_path = "mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d.py"
+checkpoint_path = "mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_20.pth"
 mmaction_model = init_recognizer(config_path, checkpoint_path, device="cpu")
 
 dim = 2 # for 2D 
@@ -34,7 +34,6 @@ def get_annotation_for_frame_dir(frame_dir, annotations):
 # Extract 3D skeleton data for validation set and perform action recognition
 predictions_list = []
 ground_truth_list = []
-all_pred_scores = []
 
 for frame_dir in val_videos:
     annotation = get_annotation_for_frame_dir(frame_dir, annotations)
@@ -75,17 +74,8 @@ accuracy = accuracy_score(ground_truth_list, predictions_list)
 precision = precision_score(ground_truth_list, predictions_list, average='weighted')
 recall = recall_score(ground_truth_list, predictions_list, average='weighted')
 
-# Prepare the true labels and prediction scores for mAP calculation
-num_classes = len(set(ground_truth_list))
-true_labels = np.zeros((len(ground_truth_list), num_classes))
-for idx, label in enumerate(ground_truth_list):
-    true_labels[idx, label] = 1
-
-all_pred_scores = np.array(all_pred_scores)
-mAP = average_precision_score(true_labels, all_pred_scores, average='macro')
-
 # Print results
 print(f"Accuracy: {accuracy}")
 print(f"Precision: {precision}")
 print(f"Recall: {recall}")
-print(f"mAP: {mAP}")
+

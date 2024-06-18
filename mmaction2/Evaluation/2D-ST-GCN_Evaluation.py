@@ -1,3 +1,9 @@
+"""This code explores additional evaluation metrics than top-1-accuracy. 
+This is achieved by manually iterating through the validation data set and 
+comparing the ground truth to the model's predictions. 
+
+Evaluation metrics are accuracy_score, precision_score, recall_score, average_precision_score from sklearn. """"
+
 import pickle
 import numpy as np
 from mmaction.apis import inference_skeleton, init_recognizer
@@ -9,15 +15,10 @@ config_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-m
 checkpoint_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_10.pth"
 mmaction_model = init_recognizer(config_path, checkpoint_path, device="cpu")
 
-dim = 2
+dim = 2 # for 2D 
 
 with open(pickle_file_path, "rb") as f:
     data = pickle.load(f)
-
-# # Initialize the mmaction2 model
-# config_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d.py"
-# checkpoint_path = "/Users/hagedorn/mmaction2/mmaction2/work_dirs/stgcn_8xb16-joint-motion-u100-80e_ntu60-xsub-keypoint-2d/best_acc_top1_epoch_10.pth"
-# mmaction_model = init_recognizer(config_path, checkpoint_path, device="cpu")
 
 # Extract validation set annotations
 val_videos = data["split"]["xsub_val"]

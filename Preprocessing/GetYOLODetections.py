@@ -1,3 +1,7 @@
+"""After the movement has been extracted from the raw videos, 
+a pretrained YOLO model is applied to check whether there are at least 
+two macaques in each frame."""
+
 import cv2
 import os
 from ultralytics import YOLO
@@ -7,7 +11,7 @@ def save_segment(output_path, fps, width, height):
     return cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
 def process_video_with_detections(video_path, model, output_folder, min_detections=2, max_no_detections_frames=5):
-    """Process the video and segment based on object detections."""
+    """Process the video and segment based on detections of macaques."""
     video_name = os.path.basename(video_path[:-4])
 
     cap = cv2.VideoCapture(video_path)
@@ -67,8 +71,7 @@ if __name__ == "__main__":
     video_path = "WholeNewVideos/extracted_motion/J1 gk4 la-20240402-110000_segment_1.mp4"
     output_folder = "C:/Users/hagedorn/mmaction2/WholeNewVideos/extracted_detections"
     
-    # Replace this with your YOLO model loading logic
-    model = YOLO("train2-best.pt") # Load your YOLO model here
+    model = YOLO("train2-best.pt") 
 
     try:
         process_video_with_detections(video_path, model, output_folder)

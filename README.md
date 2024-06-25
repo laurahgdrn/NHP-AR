@@ -10,7 +10,7 @@ For me details, follow https://temugeb.github.io/opencv/python/2021/02/02/stereo
 # Pose estimation 
 To perform pose estimation on macaques, a YOLOv8 model was built from scratch. The model was pretrained on the MacaquePose data set (Labuguen et al., 2021). The dataset consists of approximately 12000 images of macaques in varios poses and places along with
 along with 17 annotated key points and segments. The data set was transformed to fit the YOLOv8 format which means that the images and label files are stored in the following format: 
-'''
+```
 dataset/
 ├── train/
 │   ├── images/
@@ -18,7 +18,7 @@ dataset/
 └── val/
     ├── images/
     └── labels/
-'''
+```
 
 Each image has one label.txt file with the same filename. Each line in the label file represents the annotation for one 'object' in the image, containing the class index, the bounding box coordinates, and the key points: 
 

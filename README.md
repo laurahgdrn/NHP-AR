@@ -85,7 +85,7 @@ to check whether there at least two macaques in each frame. The result are video
 ### SlowFast 
 Wihtout further processing, the video segments were fed to the SlowFast architecture. 
 
-### 2D Spatial-Temporal Graph Convolutional Network 
+### 2D Spatial-Temporal Graph Convolutional Network (2D-ST-GCN)
 For 2D skeleton-based action recognition, the YOLO pose estimation model was applied to each camera viewpoint and the detected key points were extracted and stored in a pickle file according to the mmaction2 documentation: 
 ```
 {
@@ -120,7 +120,7 @@ For 2D skeleton-based action recognition, the YOLO pose estimation model was app
         ]
 }
 ```
-### 3D Spatial-Temporal Graph Convolutional Network 
+### 3D Spatial-Temporal Graph Convolutional Network (3D-ST-GCN)
 For 3D skeleton-based action recognition, the 2D skeletons were triangulated using the intrinsic and extrinsic parameters obtained during the camera calibration. 
 
 ### Results 

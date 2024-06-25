@@ -45,17 +45,7 @@ accuracy = accuracy_score(ground_truth_list, predictions_list)
 precision = precision_score(ground_truth_list, predictions_list, average='weighted')
 recall = recall_score(ground_truth_list, predictions_list, average='weighted')
 
-# Prepare the true labels and prediction scores for mAP calculation
-num_classes = len(set(ground_truth_list))
-true_labels = np.zeros((len(ground_truth_list), num_classes))
-for idx, label in enumerate(ground_truth_list):
-    true_labels[idx, label] = 1
-
-all_pred_scores = np.array(all_pred_scores).reshape(-1, 1)
-mAP = average_precision_score(true_labels, all_pred_scores, average='macro')
-
 # Print results
 print(f"Accuracy: {accuracy}")
 print(f"Precision: {precision}")
 print(f"Recall: {recall}")
-print(f"mAP: {mAP}")

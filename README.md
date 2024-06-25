@@ -26,7 +26,7 @@ Each image has one label.txt file with the same filename. Each line in the label
 
 After the YOLOv8 model was pretrained on the MacaquePose dataset, the model was finetuned on data from the BPRC and hyperparameter optimization was performed. The data from the BPRC was manually annotated and augmented. 
 Data augmentation methods included rotation, brightening, flipping, and cropping. 
-'''
+```
 -------------------------------------------------------------------
 Name             | Description                        | Value      
 -------------------------------------------------------------------
@@ -68,12 +68,71 @@ mixup            | Mixup augmentation factor          | 0.0
 -------------------------------------------------------------------
 copy_paste       | Copy-paste augmentation factor     | 0.0        
 -------------------------------------------------------------------
-'''
+```
 
 The model was pretrained on the MacaquePose data set for 200 epochs, and finetuned for 100 epochs. 
 
 # Action recognition 
+Action recognition relies on the mmaction2 framework (https://github.com/open-mmlab/mmaction2). As this framework is heavily focused on Human Action Recognition, the source code was modified and adapted to enable action recognitoin macaques. 
 
+## Preprocessing 
+
+The data provided for this research consists of hour long videos containing noise and redundant data. To minimize manual workload, a background subtraction algorithm was applied to extract movement by computing the pixel difference in consecutive frames. If the pixel difference is below a certain threshold (30px) over 5 consecutive frames, it is assumed that no relevant movement is occurring. These segments are then removed. Then, the YOLO model described earlier is applied 
+to check whether there at least two macaques in each frame. The result are video segments containing (at least) two macaques which were then manually annotated and divided into the distinct action classes. 
+
+## SlowFast 
+The video segments were then fed to the SlowFast architecture. 
+
+## 2D Spatial-Temporal Graph Convolutional Network 
+For 2D skeleton-based action recognition, the YOLO pose estimation model was applied to each camera viewpoint and the detected key points were extracted and stored in a pickle file according to the mmaction2 documentation: 
+```
+{
+    "split":
+        {
+            'xsub_train':
+                ['S001C001P001R001A001', ...],
+            'xsub_val':
+                ['S001C001P003R001A001', ...],
+            ...
+        }
+
+    "annotations:
+        [
+            {
+                {
+                    'frame_dir': 'S001C001P001R001A001',
+                    'label': 0,
+                    'img_shape': (1080, 1920),
+                    'original_shape': (1080, 1920),
+                    'total_frames': 103,
+                    'keypoint': array([[[[1032. ,  334.8], ...]]])
+                    'keypoint_score': array([[[0.934 , 0.9766, ...]]])
+                },
+                {
+                    'frame_dir': 'S001C001P003R001A001',
+                    ...
+                },
+                ...
+
+            }
+        ]
+}
+```
+## 3D Spatial-Temporal Graph Convolutional Network 
+For 3D skeleton-based action recognition, the 2D skeletons were triangulated using the intrinsic and extrinsic parameters obtained during the camera calibration. 
+
+## Results 
+```
+-------------------------------------------------------------------
+Model        | Input    | Memory | Accuracy | Precision | Recall 
+-------------------------------------------------------------------
+SlowFast     | RGB      | 8116   | 0.61     | 0.52      | 0.45   
+-------------------------------------------------------------------
+2D-ST-GCN    | 2D skel. | 1186   | 0.75     | 0.79      | 0.81   
+-------------------------------------------------------------------
+3D-ST-GCN    | 3D skel. | 1186   | 0.71     | 0.39      | 0.53   
+-------------------------------------------------------------------
+```
 
 # References 
 Labuguen, R., Matsumoto, J., Negrete, S. B., Nishimaru, H., Nishijo, H., Takada, M., ... & Shibata, T. (2021). MacaquePose: a novel “in the wild” macaque monkey pose dataset for markerless motion capture. Frontiers in behavioral neuroscience, 14, 581154.

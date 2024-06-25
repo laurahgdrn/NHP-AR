@@ -73,7 +73,7 @@ copy_paste       | Copy-paste augmentation factor     | 0.0
 The model was pretrained on the MacaquePose data set for 200 epochs, and finetuned for 100 epochs. 
 
 # Action recognition 
-Action recognition relies on the mmaction2 framework (https://github.com/open-mmlab/mmaction2). As this framework is heavily focused on Human Action Recognition, the source code was modified and adapted to enable action recognitoin macaques. 
+This project aims at classifying social interactions into grooming and playing behavior of macaques. Action recognition relies on the [mmaction2 framework](https://github.com/open-mmlab/mmaction2). As this framework is heavily focused on Human Action Recognition, the source code was modified and adapted to enable action recognition macaques. 
 
 ## Preprocessing 
 
